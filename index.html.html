@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Fest 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--bg:#0a0a0a;
+--text:#fff;
+--gray:#1a1a1a;
+--neon:#00ffff;
+--neon2:#bf00ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Montserrat',sans-serif;cursor:none}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;scroll-behavior:smooth}
+
+/* Loader */
+#loader{position:fixed;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:9999}
+.loader-text{color:var(--neon);font-size:2rem;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* Cursor */
+.cursor{width:15px;height:15px;border:2px solid var(--neon);border-radius:50%;position:fixed;pointer-events:none;z-index:999}
+
+header{display:flex;justify-content:space-between;align-items:center;padding:15px 30px;background:#000;position:sticky;top:0;z-index:1000}
+.logo{font-weight:700;color:var(--neon)}
+nav a{margin:0 10px;color:#aaa;text-decoration:none;cursor:pointer}
+nav a:hover{color:var(--neon)}
+section{padding:80px 40px;opacity:0;transform:translateY(40px);transition:.8s}
+section.show{opacity:1;transform:translateY(0)}
+.banner{height:90vh;background:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') center/cover;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;position:relative}
+.banner::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.6)}
+.banner h1{font-size:3.5rem;z-index:1;text-shadow:0 0 20px var(--neon)}
+.banner p{z-index:1}
+.btn{background:none;border:1px solid var(--neon);color:var(--neon);padding:10px 25px;margin-top:15px;cursor:pointer;transition:.3s}
+.btn:hover{background:var(--neon);color:#000;box-shadow:0 0 15px var(--neon)}
+.grid{display:grid;gap:25px}
+.events-grid{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--gray);padding:15px;border-radius:10px;transition:.3s;cursor:pointer}
+.card:hover{transform:scale(1.05);box-shadow:0 0 15px var(--neon2)}
+.card img{width:100%;height:160px;object-fit:cover;border-radius:5px}
+.gallery{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.gallery img{width:100%;border-radius:10px;cursor:pointer;transition:.4s}
+.gallery img:hover{transform:scale(1.05);box-shadow:0 0 20px var(--neon)}
+footer{text-align:center;padding:20px;background:#000}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);justify-content:center;align-items:center}
+.modal-content{background:#111;padding:20px;max-width:500px;border:1px solid var(--neon)}
+.close{cursor:pointer;color:var(--neon);float:right}
+
+.countdown{font-size:1.5rem;margin-top:10px;color:var(--neon)}
+</style>
+</head>
+<body>
+
+<div id="loader"><div class="loader-text">Cargando Urban Fest...</div></div>
+<div class="cursor" id="cursor"></div>
+
+<header>
+<div class="logo">URBAN FEST</div>
+<nav>
+<a onclick="scrollToSection('home')">Inicio</a>
+<a onclick="scrollToSection('eventos')">Eventos</a>
+<a onclick="scrollToSection('galeria')">Galería</a>
+<a onclick="scrollToSection('boletos')">Boletos</a>
+<a onclick="scrollToSection('contacto')">Contacto</a>
+</nav>
+</header>
+
+<section id="home" class="banner show">
+<h1>URBAN FEST 2026</h1>
+<p>El evento urbano del año</p>
+<div class="countdown" id="countdown"></div>
+<button class="btn" onclick="scrollToSection('eventos')">Ver eventos</button>
+</section>
+
+<section id="info">
+<h2>Sobre el Evento</h2>
+<p>Urban Fest 2026 reúne música urbana, arte callejero y cultura digital en Guadalajara.</p>
+<p>Fecha: 20 de agosto de 2026</p>
+<p>Lugar: Guadalajara, Jalisco</p>
+<p>Hora: 4:00 PM - 2:00 AM</p>
+</section>
+
+<section id="eventos">
+<h2>Eventos</h2>
+<div class="grid events-grid">
+<div class="card" onclick="openModal('Graffiti en vivo con artistas internacionales')"><img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620"><h3>Graffiti Live</h3></div>
+<div class="card" onclick="openModal('Exposición digital interactiva')"><img src="https://images.unsplash.com/photo-1500534623283-312aade485b7"><h3>Arte Digital</h3></div>
+<div class="card" onclick="openModal('Show urbano en vivo')"><img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7"><h3>Street Show</h3></div>
+</div>
+</section>
+
+<section id="galeria">
+<h2>Galería</h2>
+<div class="grid gallery">
+<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<img src="https://images.unsplash.com/photo-1500534623283-312aade485b7">
+</div>
+</section>
+
+<section id="boletos">
+<h2>Boletos</h2>
+<div class="grid events-grid">
+<div class="card"><h3>General</h3><p>$800 MXN</p></div>
+<div class="card"><h3>VIP</h3><p>$1500 MXN</p></div>
+<div class="card"><h3>Platino</h3><p>$2500 MXN</p></div>
+</div>
+</section>
+
+<section id="contacto">
+<h2>Contacto</h2>
+<p>Contacto: urbanfest@email.com</p>
+<p>Instagram: @urbanfest</p>
+</section>
+
+<footer>
+<p>© 2026 Urban Fest</p>
+</footer>
+
+<div class="modal" id="modal" onclick="closeModal(event)">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<p id="modal-text"></p>
+</div>
+</div>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+window.onload=()=>{
+setTimeout(()=>{document.getElementById('loader').style.display='none';},1500);
+document.getElementById('music').play().catch(()=>{});
+};
+
+function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+function openModal(text){document.getElementById('modal-text').innerText=text;document.getElementById('modal').style.display='flex';}
+function closeModal(e){if(!e||e.target.id==='modal'){document.getElementById('modal').style.display='none';}}
+
+const sections=document.querySelectorAll('section');
+window.addEventListener('scroll',()=>{
+sections.forEach(sec=>{
+const top=sec.getBoundingClientRect().top;
+if(top<window.innerHeight-100){sec.classList.add('show');}
+});
+});
+
+// cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{
+cursor.style.top=e.clientY+'px';
+cursor.style.left=e.clientX+'px';
+});
+
+// countdown
+const countDate=new Date("Aug 20, 2026 16:00:00").getTime();
+setInterval(()=>{
+let now=new Date().getTime();
+let gap=countDate-now;
+let d=Math.floor(gap/(1000*60*60*24));
+let h=Math.floor((gap%(1000*60*60*24))/(1000*60*60));
+let m=Math.floor((gap%(1000*60*60))/(1000*60));
+let s=Math.floor((gap%(1000*60))/1000);
+document.getElementById('countdown').innerText=`${d}d ${h}h ${m}m ${s}s`;
+},1000);
+</script>
+
+</body>
+</html>
